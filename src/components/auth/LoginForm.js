@@ -1,15 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { validateLogin } from '../../services/validate';
 import axios from '../../config/axios';
-import { AuthContext } from '../../contexts/AuthContext';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState({});
   const [apiError, setApiError] = useState('');
-
-  const { login } = useContext(AuthContext);
 
   const handleSubmitForm = async e => {
     e.preventDefault();
@@ -19,7 +16,6 @@ function LoginForm() {
       try {
         const res = await axios.post('/users/login', { username, password });
         localStorage.setItem('accessToken', res.data.token);
-        login();
       } catch (err) {
         if (err.response) {
           setApiError(err.response.data.message);

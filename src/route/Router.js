@@ -1,15 +1,13 @@
-import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 
 function Router() {
-  const { isAuthenticated } = useContext(AuthContext);
   return (
     <Routes>
-      {isAuthenticated ? (
+      {true ? (
         <>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Navigate to="/" />} />

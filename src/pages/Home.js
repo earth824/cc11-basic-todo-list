@@ -4,10 +4,10 @@ import { TodoContextProvider } from '../contexts/TodoContext';
 
 function Home() {
   return (
-    <TodoContextProvider>
+    <>
       <TodoInput />
       <TodoList />
-    </TodoContextProvider>
+    </>
   );
 }
 
