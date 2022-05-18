@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
-
+import axios from '../config/axios';
+import { getAllTodo } from '../api/todo';
 const TodoContext = createContext();
 
 function TodoContextProvider(props) {
@@ -8,7 +8,7 @@ function TodoContextProvider(props) {
 
   const createTodo = title => {
     axios
-      .post('http://localhost:8080/todos', { title, completed: false })
+      .post('/todos', { title, completed: false })
       .then(res => {
         const newTodo = res.data.todo;
         const newTodoList = [newTodo, ...todoList];
@@ -21,7 +21,7 @@ function TodoContextProvider(props) {
 
   const removeTodo = id => {
     axios
-      .delete(`http://localhost:8080/todos/${id}`)
+      .delete(`/todos/${id}`)
       .then(() => {
         const idx = todoList.findIndex(el => el.id === id);
         if (idx !== -1) {
@@ -37,7 +37,7 @@ function TodoContextProvider(props) {
 
   const updateTodo = (newValue, id) => {
     axios
-      .put('http://localhost:8080/todos/' + id, newValue)
+      .put('/todos/' + id, newValue)
       .then(() => {
         const idx = todoList.findIndex(el => el.id === id);
         if (idx !== -1) {
@@ -52,14 +52,11 @@ function TodoContextProvider(props) {
   };
 
   useEffect(() => {
-    axios
-      .get('http://localhost:8080/todos')
-      .then(res => {
-        setTodoList(res.data.todos);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const fetchTodo = async () => {
+      const todos = await getAllTodo();
+      setTodoList(todos);
+    };
+    fetchTodo();
   }, []);
 
   return (

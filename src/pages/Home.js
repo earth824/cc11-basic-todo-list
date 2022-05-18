@@ -1,9 +1,14 @@
+import TodoInput from '../components/todo-list/TodoInput';
+import TodoList from '../components/todo-list/TodoList';
+import { TodoContextProvider } from '../contexts/TodoContext';
+
 function Home() {
-  return <div>Home Page</div>;
-}
-{
-  /* <TodoInput />
-        <TodoList /> */
+  return (
+    <TodoContextProvider>
+      <TodoInput />
+      <TodoList />
+    </TodoContextProvider>
+  );
 }
 
 export default Home;

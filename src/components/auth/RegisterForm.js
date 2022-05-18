@@ -110,13 +110,12 @@ function RegisterForm() {
         <button type="submit" className="btn btn-primary mt-3">
           Register
         </button>
-
-        {apiError && (
-          <div className="alert alert-danger mt-3" role="alert">
-            {apiError}
-          </div>
-        )}
       </form>
+      {apiError && (
+        <div className="alert alert-danger mt-3" role="alert">
+          {apiError}
+        </div>
+      )}
     </div>
   );
 }

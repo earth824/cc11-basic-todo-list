@@ -23,3 +23,17 @@ export function validateRegister(input) {
 
   return err;
 }
+
+export function validateLogin(input) {
+  const err = {};
+
+  if (!input.username) {
+    err.username = 'username is required';
+  }
+
+  if (!input.password) {
+    err.password = 'password is required';
+  }
+
+  return err;
+}
