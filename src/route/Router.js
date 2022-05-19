@@ -1,12 +1,12 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 
 function Router() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   return (
     <Routes>
       {isAuthenticated ? (

@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';
+import { logout } from '../../stores/auth';
 
 function Header() {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-white shadow-sm">
       <div className="container-fluid">
@@ -25,8 +26,7 @@ function Header() {
                     className="nav-link"
                     role="button"
                     onClick={() => {
-                      logout();
-                      localStorage.removeItem('accessToken');
+                      dispatch(logout());
                     }}
                   >
                     Logout

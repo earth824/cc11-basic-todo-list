@@ -17,4 +17,13 @@ axios.interceptors.request.use(
   }
 );
 
+axios.interceptors.response.use(
+  response => response,
+  err => {
+    if (err.response.status === 401) {
+    }
+    return Promise.reject(err);
+  }
+);
+
 export default axios;

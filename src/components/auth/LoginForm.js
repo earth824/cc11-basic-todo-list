@@ -1,7 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { validateLogin } from '../../services/validate';
 import axios from '../../config/axios';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useDispatch } from 'react-redux';
+import { login, loginAsync } from '../../stores/auth';
+import { setAccessToken } from '../../services/localStorage';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -9,7 +11,10 @@ function LoginForm() {
   const [error, setError] = useState({});
   const [apiError, setApiError] = useState('');
 
-  const { login } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  // dispatch({ type: 'FETCH_TODO', payload: 'ALL' })
+  // login(token) => { type: 'auth/login', payload: token }
+  // dispatch(login())
 
   const handleSubmitForm = async e => {
     e.preventDefault();
@@ -17,9 +22,9 @@ function LoginForm() {
     setError(errResult);
     if (Object.keys(errResult).length === 0) {
       try {
-        const res = await axios.post('/users/login', { username, password });
-        localStorage.setItem('accessToken', res.data.token);
-        login();
+        // const res = await axios.post('/users/login', { username, password });
+        // setAccessToken(res.data.token)
+        dispatch(loginAsync(username, password));
       } catch (err) {
         if (err.response) {
           setApiError(err.response.data.message);
