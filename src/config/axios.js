@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAccessToken } from '../services/localStorage';
+import { getAccessToken, removeAccessToken } from '../services/localStorage';
 import { API_URL } from './env';
 
 axios.defaults.baseURL = API_URL;
@@ -21,6 +21,8 @@ axios.interceptors.response.use(
   response => response,
   err => {
     if (err.response.status === 401) {
+      removeAccessToken();
+      window.location.replace('/login');
     }
     return Promise.reject(err);
   }

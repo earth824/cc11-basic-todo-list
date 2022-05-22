@@ -10,9 +10,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('test');
-    dispatch(initUser());
-  }, []);
+    if (getAccessToken()) {
+      dispatch(initUser());
+    }
+  }, [getAccessToken()]);
 
   return (
     <>
